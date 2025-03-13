@@ -57,6 +57,7 @@
     "recharts": "^2.15.1",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
+    "vaul": "^1.1.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -66,6 +67,7 @@
     "autoprefixer": "10.4.15",
     "eslint": "8.49.0",
     "eslint-config-next": "13.5.1",
+    "netlify-plugin-cache-nextjs": "^1.6.1",
     "postcss": "8.4.30",
     "tailwindcss": "3.3.3",
     "typescript": "5.2.2"
