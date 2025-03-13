@@ -3,8 +3,8 @@
   publish = ".next"
 
 [build.environment]
-  NODE_VERSION = "16"
-  NPM_VERSION = "8"
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
   NEXT_TELEMETRY_DISABLED = "1"
   # Desabilitar o uso do Go
   GO_IMPORT_PATH = ""
@@ -32,3 +32,6 @@
 # Configuração de cache para Next.js
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[[plugins]]
+  package = "netlify-plugin-cache-nextjs"
