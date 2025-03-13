@@ -6,6 +6,10 @@
   NODE_VERSION = "16"
   NPM_VERSION = "8"
   NEXT_TELEMETRY_DISABLED = "1"
+  # Desabilitar o uso do Go
+  GO_IMPORT_PATH = ""
+  GO_VERSION = ""
+  GO_ENABLED = "false"
 
 # Configuração de cache para otimizar rebuilds
 [build.processing]
