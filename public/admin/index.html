@@ -8,19 +8,60 @@
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <!-- Script do Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Inicialização do widget de identidade -->
     <script>
-      // Verificar se o usuário está logado e redirecionar se necessário
+      // Função para depuração
+      function logDebug(message, data) {
+        console.log(`[Netlify Identity] ${message}`, data || '');
+      }
+
+      // Função para lidar com tokens de confirmação
+      function handleConfirmationToken() {
+        if (window.location.hash && window.location.hash.includes("confirmation_token")) {
+          logDebug("Token de confirmação detectado:", window.location.hash);
+          // Forçar processamento do token e atualizar o estado do usuário
+          setTimeout(function() {
+            window.netlifyIdentity.refresh(true).then(user => {
+              logDebug("Usuário atualizado após confirmação:", user);
+              if (user) {
+                logDebug("Redirecionando para o admin após confirmação");
+                window.location.href = "/admin/";
+              }
+            }).catch(err => {
+              logDebug("Erro ao processar token de confirmação:", err);
+            });
+          }, 1000);
+        }
+      }
+
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
+          logDebug("Netlify Identity inicializado", user);
           if (!user) {
+            logDebug("Usuário não está logado");
             window.netlifyIdentity.on("login", () => {
+              logDebug("Login bem-sucedido, redirecionando...");
               document.location.href = "/admin/";
             });
+          } else {
+            logDebug("Usuário já está logado:", user);
+          }
+          
+          // Verificar token de confirmação após inicialização
+          handleConfirmationToken();
+        });
+
+        // Lidar com erros de autenticação
+        window.netlifyIdentity.on("error", err => {
+          logDebug("Erro de autenticação:", err);
+          if (err.message && err.message.includes("Email not confirmed")) {
+            alert("Seu e-mail ainda não foi confirmado. Por favor, verifique sua caixa de entrada e clique no link de confirmação.");
           }
         });
       }
     </script>
+    
+    <!-- Script do Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>
