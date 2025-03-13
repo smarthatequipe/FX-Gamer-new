@@ -1,0 +1,31 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "posts"
+    label: "Posts"
+    folder: "content/posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Data", name: "date", widget: "datetime" }
+      - { label: "Imagem de Capa", name: "coverImage", widget: "image" }
+      - { label: "Categoria", name: "category", widget: "select", options: ["Notícias", "Reviews", "Guias"] }
+      - { label: "Resumo", name: "excerpt", widget: "text" }
+      - { label: "Conteúdo", name: "body", widget: "markdown" }
+      - { label: "Tags", name: "tags", widget: "list" }
+      - { label: "Meta Descrição", name: "metaDescription", widget: "text" }
+
+  - name: "authors"
+    label: "Autores"
+    folder: "content/authors"
+    create: true
+    fields:
+      - { label: "Nome", name: "name", widget: "string" }
+      - { label: "Foto", name: "photo", widget: "image" }
+      - { label: "Biografia", name: "bio", widget: "text" }
