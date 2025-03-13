@@ -6,7 +6,7 @@ import { format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 
 interface Post {
-  id: number
+  id: number | string
   title: string
   excerpt: string
   coverImage: string

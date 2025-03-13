@@ -1,9 +1,74 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 import { PostCard } from "@/components/post-card"
 import { Button } from "@/components/ui/button"
 
+// Interface para o tipo Post
+interface Post {
+  id: number | string
+  title: string
+  excerpt: string
+  coverImage: string
+  category: string
+  date: string
+}
+
+// Função para obter todos os posts
+function getPosts(): Post[] {
+  const postsDirectory = path.join(process.cwd(), 'content/posts');
+  
+  // Verifica se o diretório existe
+  if (!fs.existsSync(postsDirectory)) {
+    console.warn('Diretório de posts não encontrado:', postsDirectory);
+    return [];
+  }
+  
+  const fileNames = fs.readdirSync(postsDirectory);
+  
+  const allPostsData = fileNames.map(fileName => {
+    // Remove a extensão ".md" do nome do arquivo para obter o id
+    const id = fileName.replace(/\.md$/, '');
+    
+    // Lê o arquivo markdown como string
+    const fullPath = path.join(postsDirectory, fileName);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    
+    // Usa gray-matter para analisar a seção de metadados do post
+    const matterResult = matter(fileContents);
+    
+    // Verifica se todos os campos necessários existem
+    const frontmatter = matterResult.data;
+    
+    // Cria um objeto Post com valores padrão para campos ausentes
+    const post: Post = {
+      id,
+      title: frontmatter.title || 'Sem título',
+      excerpt: frontmatter.excerpt || 'Sem descrição',
+      coverImage: frontmatter.coverImage || 'https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=1470',
+      category: frontmatter.category || 'Sem categoria',
+      date: frontmatter.date ? new Date(frontmatter.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0],
+    };
+    
+    return post;
+  });
+  
+  // Ordena os posts por data, do mais recente para o mais antigo
+  return allPostsData.sort((a, b) => {
+    if (a.date < b.date) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+}
+
 export default function Home() {
-  // Dados mockados para exemplo
-  const featuredPosts = [
+  // Carrega os posts do sistema de arquivos
+  const posts = getPosts();
+  
+  // Caso não existam posts, usa os dados mockados como fallback
+  const featuredPosts: Post[] = posts.length > 0 ? posts : [
     {
       id: 1,
       title: "Review: Palworld - O Pokémon com Armas que Conquistou a Internet",
@@ -20,7 +85,7 @@ export default function Home() {
       category: "Guias",
       date: "2024-02-19",
     },
-  ]
+  ];
 
   return (
     <div className="container py-8">
