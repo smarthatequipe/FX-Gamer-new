@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Removendo output: 'export' para permitir rotas dinâmicas sem pré-geração
   eslint: {
     ignoreDuringBuilds: true,
   },
