@@ -1,6 +1,8 @@
 backend:
   name: git-gateway
   branch: master
+  repo: smarthatequipe/FX-Gamer-new
+  auth_scope: repo
   commit_messages:
     create: 'Criar {{collection}} "{{slug}}"'
     update: 'Atualizar {{collection}} "{{slug}}"'
