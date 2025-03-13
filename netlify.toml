@@ -5,6 +5,33 @@
 [build.environment]
   NODE_VERSION = "16"
   NPM_VERSION = "8"
+  NEXT_TELEMETRY_DISABLED = "1"
 
+# Configuração de cache para otimizar rebuilds
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+[build.processing.images]
+  compress = true
+
+# Configuração de cache para Next.js
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+# Configuração específica para o plugin Next.js
+[plugins.inputs]
+  # Habilitar cache para builds mais rápidos
+  enable_cache = true
+  # Usar o cache do Next.js para melhorar o desempenho
+  use_next_cache = true
