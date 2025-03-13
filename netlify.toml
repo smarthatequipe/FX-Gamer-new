@@ -35,3 +35,15 @@
 
 [[plugins]]
   package = "netlify-plugin-cache-nextjs"
+
+# Configuração para garantir que arquivos estáticos sejam servidos corretamente
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/:splat"
+  status = 200
+
+# Garantir que o arquivo de identidade do Netlify seja acessível
+[[redirects]]
+  from = "/.netlify/identity"
+  to = "/.netlify/identity"
+  status = 200

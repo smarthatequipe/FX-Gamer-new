@@ -3,15 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FXGAMES - Painel Administrativo</title>
+    <title>FXGAMES - Blog de Jogos</title>
     <!-- Script de identidade do Netlify -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <!-- Script do Decap CMS -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Conteúdo da página principal -->
+    <div id="root"></div>
+    
+    <!-- Script para redirecionamento após login -->
     <script>
-      // Verificar se o usuário está logado e redirecionar se necessário
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", user => {
           if (!user) {

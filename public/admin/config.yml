@@ -1,10 +1,24 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: master
+  commit_messages:
+    create: 'Criar {{collection}} "{{slug}}"'
+    update: 'Atualizar {{collection}} "{{slug}}"'
+    delete: 'Excluir {{collection}} "{{slug}}"'
+    uploadMedia: 'Enviar mídia "{{path}}"'
+    deleteMedia: 'Excluir mídia "{{path}}"'
 
+# Quando estiver em desenvolvimento, descomente esta linha para usar o modo local
+# local_backend: true
+
+# Configurações de mídia
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
+# Configurações de publicação
+publish_mode: editorial_workflow
+
+# Coleções de conteúdo
 collections:
   - name: "posts"
     label: "Posts"
